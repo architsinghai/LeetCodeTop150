@@ -48,8 +48,7 @@ int main(){
     int ans= removeElement(arr, val);
     cout<<ans<<endl;
 
-    //Printing array after removing elements in-place. From ans index to n, duplicate elements are present but since 
-    // we are returning ans so it will automatically pick elements till (ans-1) index only.
+    //Printing array after removing elements in-place. From ans index to n, duplicate elements are present.
     for(int i=0; i<ans; i++){
         cout<<arr[i]<<" ";
     }

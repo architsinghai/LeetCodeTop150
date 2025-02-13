@@ -5,7 +5,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int> merge2SortedArrays(vector<int> arr1, int n, vector<int> arr2, int m){
+
+// BruteForce Approach- In this we are using extra space to store all elements of both arrays. It's a very 
+// straighforward approach
+
+// Time Complexity: O(n+m) where n and m are the sizes of the given arrays.
+// Space Complexity: O(n+m) as we use an extra array of size n+m.
+
+vector<int> merge2SortedArrays(vector<int> &arr1, int n, vector<int> &arr2, int m){
     //Declaring ans array for storing all (n+m) elemnets from both arrays
     vector<int> ans(n+m);
     //For keeping track of index to store elements in ans array
@@ -33,6 +40,35 @@ vector<int> merge2SortedArrays(vector<int> arr1, int n, vector<int> arr2, int m)
 
 }
 
+// Optimal Approach- Two Pointers- Using the 2 pointers, we will swap the bigger elements of arr1 with the 
+// smaller elements of arr2 until the minimum of arr2 becomes greater or equal to the maximum of arr1.
+
+// Time Complexity: O(min(n, m)) is for swapping the array elements. And O(n*logn) and O(m*logm) are for sorting the two arrays.
+// Space Complexity: O(1)
+
+void merge(vector<int> &arr1, int n, vector<int> &arr2, int m) {
+
+    //Declare 2 pointers:
+    int s = n - 1;
+    int e = 0;
+
+    //Swap the elements until arr1[left] is smaller than arr2[right]:
+    while (s >= 0 && e < m) {
+        if (arr1[s] > arr2[e]) {
+            swap(arr1[s], arr2[e]);
+            s--, e++;
+        }
+        else {
+            break;
+        }
+    }
+
+    // Sort arr1[] and arr2[] individually:
+    sort(arr1.begin(), arr1.end());
+    sort(arr2.begin(), arr2.end());
+}
+
+
 int main(){
     int n, m;
     cout<<"Enter size of first array: ";
@@ -50,11 +86,13 @@ int main(){
         cin>>arr2[i];
     }
 
-    //Function calling for merging arrays
+    // Bruteforce Approach
     vector<int> ans= merge2SortedArrays(arr1, n, arr2, m);
 
-    //Printing ans array
-    for(int i=0; i<n+m; i++){
-        cout<<ans[i]<<" ";
-    }
+    // Optimal Approach
+    merge(arr1, n, arr2, m);
+
+
+
+
 }

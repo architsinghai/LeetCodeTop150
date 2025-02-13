@@ -5,21 +5,53 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int removeDuplicates(vector<int> &nums)
-{
+// BruteForce Approach:-
+
+// Declare a HashSet.
+// Run a for loop from starting to the end.
+// Put every element of the array in the set.
+// Store size of the set in a variable size.
+// Now put all elements of the set in the array from the starting of the array.
+// Return size.
+
+// Time complexity: O(n*log(n))+O(n)
+// Space Complexity: O(n) 
+
+int removeDuplicatesUsingSet(vector<int> &nums) {
     int n = nums.size();
-    int ind = 0, r = 0;
-    while (r < n - 1)
-    {
-        while (r < n - 1 && nums[r] == nums[r + 1])
-            r++;
-        swap(nums[r++], nums[ind++]);
+    set < int > s;
+    for (int i = 0; i < n; i++) {
+        s.insert(nums[i]);
     }
-    if (r == n - 1)
-    {
-        swap(nums[r++], nums[ind++]);
+    int size = s.size();
+    int j = 0;
+    for (int el: s) {
+        nums[j++] = el;
     }
-    return ind;
+    return size;
+}
+
+// Optimal Approach: Two Pointers
+
+// Take a variable i as 0;
+// Use a for loop by using a variable ‘j’ from 1 to length of the array.
+// If arr[j] != arr[i], increase ‘i’ and update arr[i] == arr[j].
+//  After completion of the loop return i+1, i.e size of the array of unique elements.
+
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+
+int removeDuplicates(vector<int> &arr)
+{
+    int n= arr.size();
+    int i = 0;
+    for (int j = 1; j < n; j++) {
+        if (arr[i] != arr[j]) {
+        i++;
+        arr[i] = arr[j];
+        }
+    }
+    return i + 1;
 }
 
 int main(){
@@ -33,12 +65,15 @@ int main(){
         cin>>arr[i];
     }
 
-    // size of array after removing all occurences of val
-    int ans= removeDuplicates(arr);
-    cout<<ans<<endl;
+    //BruteForce Approach Using set
+    int ans= removeDuplicatesUsingSet(arr);
 
-    //Printing array after removing duplicates in-place. From ans index to n, duplicate elements are present but since 
-    // we are returning ans so it will automatically pick elements till (ans-1) index only.
+    // size of array after removing all occurences of val
+    // int ans= removeDuplicates(arr);
+    cout<<"Size of array till unique elements: "<<ans<<endl;
+
+    //Printing array after removing duplicates in-place. From ans index to n, duplicate elements are present.
+    cout<<"Elements of array after removing duplicates are: "<<endl;
     for(int i=0; i<ans; i++){
         cout<<arr[i]<<" ";
     }

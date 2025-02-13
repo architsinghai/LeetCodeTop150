@@ -1,0 +1,1 @@
+This repository contains solutions for LeetCode Top 150 questions, structured systematically. Each question is solved from a brute force approach to the most optimized solution, with detailed explanations, comments, and time/space complexities provided.
